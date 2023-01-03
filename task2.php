@@ -11,7 +11,7 @@ $name = readline("Введите имя именниника: ");
 
 for ($i = 1; $i <= 3; $i++) {
     $array[] = $adjective[array_rand($adjective)] . " " . $wish[array_rand($wish)];
-};
+}
 
 $strWish = implode(', ', $array);
 echo " Дорогой {$name}, от всего сердца поздравляю тебя с днем рождения, желаю {$strWish}!";
