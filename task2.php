@@ -10,8 +10,13 @@ $array = [];
 $name = readline("Введите имя именниника: ");
 
 for ($i = 1; $i <= 3; $i++) {
-    $array[] = $adjective[array_rand($adjective)] . " " . $wish[array_rand($wish)];
-}
+    $randA = array_rand($adjective);
+    $randW = array_rand($wish);
+    $array[] = $adjective[$randA] . " " . $wish[$randW];
 
+    unset($adjective[$randA]);
+    unset($wish[$randW]);
+}
+$last = array_pop($array);
 $strWish = implode(', ', $array);
-echo " Дорогой {$name}, от всего сердца поздравляю тебя с днем рождения, желаю {$strWish}!";
+echo " Дорогой {$name}, от всего сердца поздравляю тебя с днем рождения, желаю {$strWish} и {$last}!";

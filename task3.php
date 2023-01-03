@@ -29,13 +29,12 @@ $students = [
 $del = [];
 $average = [];
 foreach ($students as $group => $groupStud) {
-    $sum = 0;
     foreach ($groupStud as $student => $scope) {
-        $sum += $scope;
         if ($scope < 3) $del[$student] = $scope;
     }
-    $average[$group] = round(($sum / count($groupStud)), 2);
+    $average[$group] = round((array_sum($groupStud) / count($groupStud)), 2);
 }
 
-echo array_search($maxAver, $average) . " => " . max($average) . " \n ";
+$maxAver = max($average);
+echo array_search($maxAver, $average) . " => " . $maxAver . " \n ";
 print_r($del);
