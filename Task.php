@@ -1,6 +1,8 @@
 <?php
 /*Разработайте класс Task, выполняющий ответственность обычной задачи Todo-списка. Класс должен содержать приватные свойства description, dateCreated, dateUpdated, dateDone, priority (int), isDone (bool) и обязательное user (User). В качества класса пользователя воспользуйтесь разработанным на уроке. Класс Task должен содержать все необходимые для взаимодействия со свойствами методы (getters, setters). При вызове метода setDescription обновляйте значение свойства dateUpdated. Разработайте метод markAsDone, помечающий задачу выполненной, а также обновляющий свойства dateUpdated и dateDone.*/
 require_once 'User.php';
+require_once 'Comment.php';
+require_once 'TaskService.php';
 
 class Task
 {
@@ -11,6 +13,7 @@ class Task
 	private int $priority;
 	private bool $isDone;
 	private User $user;
+	private array $comments = [];
 
 
 	/**
@@ -102,13 +105,33 @@ class Task
 		$this->dateUpdate = new DateTime();
 		$this->dateDone = new DateTime();
 	}
+
+	/**
+	 * @return array
+	 */
+	public function getComments(): array
+	{
+		return $this->comments;
+	}
+
+
+	/**
+	 * @param array $comments 
+	 * @return self
+	 */
+	public function setComments(Comment $comment): self
+	{
+		$this->comments[] = $comment;
+		return $this;
+	}
 }
 
 $play = new User("Margo");
 $task1 = new Task('Выполнить задачу', $play);
 $task1->setDescription("Задача выполняется");
-
+TaskService::addComment($play, $task1, 'Задача принята к исполнению');
 $task1->markAsDone();
+TaskService::addComment($play, $task1, 'Задача исполнена');
 
 print_r($task1);
 
