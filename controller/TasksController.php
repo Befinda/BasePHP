@@ -15,10 +15,16 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     session_destroy();
 }
 
+$taskProvider = new TaskProvider();
 
-$tasks = [
-    'Погулять с собакой',
-    'Починить компьютер'
-];
+if (isset($_GET['action']) && $_GET['action'] === 'add') {
+    $taskText = strip_tags($_POST['task']);
+    $taskProvider->addTask(new Task($taskText, $user));
+    header("Location: /?controller=tasks");
+    die();
+}
+
+
+$tasks = $taskProvider->getUndoneList();
 
 include "view/tasks.php";
